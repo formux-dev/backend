@@ -8,7 +8,7 @@ const bodyParser = require("body-parser");
 
 const getForms = require("./routes/getForms");
 const getForm = require("./routes/getForm");
-const getFormReport = require("./routes/getFormReport");
+const getFormResponses = require("./routes/getFormResponses");
 const postForm = require("./routes/postForm");
 
 const corsOptions = {
@@ -22,7 +22,7 @@ app.use(bodyParser.json());
 
 app.get("/forms", getForms);
 app.get("/forms/:formId", getForm);
-app.get("/forms/:formId/report", getFormReport);
+app.get("/forms/:formId/responses", getFormResponses);
 app.post("/forms", postForm);
 
 exports.api = functions.https.onRequest(app);
