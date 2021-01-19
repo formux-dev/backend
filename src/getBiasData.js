@@ -3,7 +3,7 @@ const { firestore } = require("./admin");
 const { themeOptions } = require("./themeOptions");
 const { fillRest, average } = require("./utils");
 
-async function prepareThemeData(formId) {
+async function getBiasData(formId) {
   const getFeature = async (name, optionsList) => {
     let options = await Promise.all(
       optionsList.map(async option => {
@@ -35,19 +35,6 @@ async function prepareThemeData(formId) {
   return await Promise.all(
     themeOptions.map(async feature => await getFeature(feature.name, feature.options))
   );
-}
-
-async function getBiasData(formId) {
-  return await prepareThemeData(formId);
-
-  // return (await prepareThemeData(formId)).reduce((acc, feature) => {
-  //   const options = feature.options.map(item => item.value);
-  //   const biases = softmax(feature.options.map(item => average(item.ratings)));
-
-  //   const result = options.map((option, index) => { option, bias: })
-
-  //   return { ...acc, [feature.name]: maybeConvertToBool(result) };
-  // }, {});
 }
 
 module.exports = {
