@@ -1,7 +1,7 @@
 const { firestore } = require("./admin");
 
 const { themeOptions } = require("./themeOptions");
-const { softmax, randomWithBias, fillRest, average, maybeConvertToBool } = require("./utils");
+const { fillRest, average } = require("./utils");
 
 async function prepareThemeData(formId) {
   const getFeature = async (name, optionsList) => {
@@ -17,6 +17,7 @@ async function prepareThemeData(formId) {
 
         ratings = ratings.docs.map(doc => doc.data().rating);
         ratings = fillRest(ratings, 3, 10);
+        ratings = average(ratings);
 
         return {
           value: option,
@@ -36,17 +37,19 @@ async function prepareThemeData(formId) {
   );
 }
 
-async function generateTheme(formId) {
-  return (await prepareThemeData(formId)).reduce((acc, feature) => {
-    const options = feature.options.map(item => item.value);
-    const biases = softmax(feature.options.map(item => average(item.ratings)));
+async function getBiasData(formId) {
+  return await prepareThemeData(formId);
 
-    const result = randomWithBias(options, biases);
+  // return (await prepareThemeData(formId)).reduce((acc, feature) => {
+  //   const options = feature.options.map(item => item.value);
+  //   const biases = softmax(feature.options.map(item => average(item.ratings)));
 
-    return { ...acc, [feature.name]: maybeConvertToBool(result) };
-  }, {});
+  //   const result = options.map((option, index) => { option, bias: })
+
+  //   return { ...acc, [feature.name]: maybeConvertToBool(result) };
+  // }, {});
 }
 
 module.exports = {
-  generateTheme,
+  getBiasData,
 };
