@@ -18,7 +18,7 @@ jobs:
       - name: Install yarn packages
         run: yarn install
 
-      - name: Deploy to Firebase Hosting
+      - name: Deploy to Firebase Functions
         uses: w9jds/firebase-action@v1.5.0
         with:
           args: deploy --only functions
