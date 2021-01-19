@@ -17,11 +17,10 @@ async function getBiasData(formId) {
 
         ratings = ratings.docs.map(doc => doc.data().rating);
         ratings = fillRest(ratings, 3, 10);
-        ratings = average(ratings);
 
         return {
           value: option,
-          ratings,
+          rating: average(ratings),
         };
       })
     );
