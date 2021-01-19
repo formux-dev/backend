@@ -1,0 +1,18 @@
+{
+  "functions": {
+    "source": "./"
+  },
+  "emulators": {
+    "firestore": {
+      "port": "7002"
+    },
+    "ui": {
+      "enabled": true,
+      "host": "localhost",
+      "port": 5000
+    },
+    "functions": {
+      "port": 6001
+    }
+  }
+}

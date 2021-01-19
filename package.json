@@ -1,0 +1,28 @@
+{
+  "name": "formux-backend",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "serve": "firebase emulators:start",
+    "shell": "firebase functions:shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "12"
+  },
+  "main": "./src/index.js",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "firebase-admin": "^9.4.2",
+    "firebase-functions": "^3.13.1",
+    "xss-clean": "^0.1.1"
+  },
+  "devDependencies": {
+    "firebase-functions-test": "^0.2.0",
+    "google-gax": "^2.9.0",
+    "prettier": "^2.2.1"
+  },
+  "private": true
+}
