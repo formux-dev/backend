@@ -7,7 +7,7 @@ async function getFormBiases(request, response) {
     const biases = await getBiasData(formId);
 
     response.send({
-      biases,
+      ...biases,
     });
   } catch ({ message }) {
     response.status(500).send({ message });
