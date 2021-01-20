@@ -7,7 +7,7 @@ function scale(array, desiredSum) {
 }
 
 function average(ratings) {
-  return sum(ratings) / rating.length;
+  return sum(ratings) / ratings.length;
 }
 
 function randomWithBias(options, biases) {
