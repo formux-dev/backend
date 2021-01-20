@@ -16,8 +16,7 @@ async function prepareThemeData(formId) {
           .get();
 
         ratings = ratings.docs.map(doc => doc.data().rating);
-        // .map(rating => Math.pow(rating, 2).toFixed(1));
-        ratings = fillRest(ratings, 3.0, 10);
+        ratings = fillRest(ratings, 3, 10);
 
         return {
           value: option,
