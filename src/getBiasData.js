@@ -16,7 +16,7 @@ async function getBiasData(formId) {
           .get();
 
         ratings = ratings.docs.map(doc => doc.data().rating);
-        ratings = fillRest(ratings, 3, 10);
+        ratings = fillRest(ratings, 3, 5);
 
         return {
           value: option,
