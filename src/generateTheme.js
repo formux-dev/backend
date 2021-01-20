@@ -1,45 +1,11 @@
-const { firestore } = require("./admin");
+const { getBiasData } = require("./getBiasData");
 
-const { themeOptions } = require("./themeOptions");
-const { softmax, randomWithBias, fillRest, average, maybeConvertToBool } = require("./utils");
-
-async function prepareThemeData(formId) {
-  const getFeature = async (name, optionsList) => {
-    let options = await Promise.all(
-      optionsList.map(async option => {
-        let ratings = await firestore
-          .collection("forms")
-          .doc(formId)
-          .collection("ratings")
-          .doc(name)
-          .collection(option.toString())
-          .get();
-
-        ratings = ratings.docs.map(doc => Math.pow(doc.data().rating, 2));
-        ratings = fillRest(ratings, 3, 10);
-
-        return {
-          value: option,
-          ratings,
-        };
-      })
-    );
-
-    return {
-      name,
-      options,
-    };
-  };
-
-  return await Promise.all(
-    themeOptions.map(async feature => await getFeature(feature.name, feature.options))
-  );
-}
+const { softmax, randomWithBias, maybeConvertToBool } = require("./utils");
 
 async function generateTheme(formId) {
-  return (await prepareThemeData(formId)).reduce((acc, feature) => {
+  return (await getBiasData(formId)).reduce((acc, feature) => {
     const options = feature.options.map(item => item.value);
-    const biases = softmax(feature.options.map(item => average(item.ratings)));
+    const biases = softmax(feature.options.map(item => item.rating));
 
     const result = randomWithBias(options, biases);
 
