@@ -1,11 +1,14 @@
 const { getBiasData } = require("./getBiasData");
 
-const { softmax, randomWithBias, maybeConvertToBool } = require("./utils");
+const { scale, randomWithBias, maybeConvertToBool } = require("./utils");
 
-async function generateTheme(formId) {
+async function getTheme(formId) {
   return (await getBiasData(formId)).reduce((acc, feature) => {
     const options = feature.options.map(item => item.value);
-    const biases = softmax(feature.options.map(item => item.rating));
+    const biases = scale(
+      feature.options.map(item => item.rating),
+      1
+    );
 
     const result = randomWithBias(options, biases);
 
@@ -14,5 +17,5 @@ async function generateTheme(formId) {
 }
 
 module.exports = {
-  generateTheme,
+  getTheme,
 };

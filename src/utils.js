@@ -1,17 +1,23 @@
-function softmax(arr) {
-  return arr.map(value => {
-    return Math.exp(value) / arr.map(y => Math.exp(y)).reduce((a, b) => a + b);
-  });
+function sum(array) {
+  return array.reduce((acc, curr) => acc + curr);
+}
+
+function scale(array, desiredSum) {
+  return array.map(value => (value / sum(array)) * desiredSum);
+}
+
+function average(ratings) {
+  return sum(ratings) / rating.length;
 }
 
 function randomWithBias(options, biases) {
-  let sum = 0;
+  let biasSum = 0;
   const cumulativeBias = biases.map(function (x) {
-    sum += x;
-    return sum;
+    biasSum += x;
+    return biasSum;
   });
 
-  const choice = Math.random() * sum;
+  const choice = Math.random() * biasSum;
 
   let chosenIndex = null;
   cumulativeBias.some((el, i) => {
@@ -30,10 +36,6 @@ function fillRest(array, fill, min) {
   }
 }
 
-function average(rating) {
-  return rating.reduce((a, b) => a + b) / rating.length;
-}
-
 function maybeConvertToBool(string) {
   if (string == "true") return true;
   if (string == "false") return false;
@@ -41,7 +43,7 @@ function maybeConvertToBool(string) {
 }
 
 module.exports = {
-  softmax,
+  scale,
   randomWithBias,
   fillRest,
   average,

@@ -1,12 +1,12 @@
 const { firestore } = require("../admin");
-const { generateTheme } = require("../generateTheme");
+const { getTheme } = require("../getTheme");
 
 async function getForm(request, response) {
   try {
     const { formId } = request.params;
     const doc = await firestore.collection("forms").doc(formId).get();
 
-    const theme = await generateTheme(formId);
+    const theme = await getTheme(formId);
 
     response.send({
       ...doc.data(),
