@@ -16,11 +16,11 @@ async function getBiasData(formId) {
           .get();
 
         ratings = ratings.docs.map(doc => doc.data().rating);
-        ratings = fillRest(ratings, 3, 10);
+        ratings = fillRest(ratings, 3.0, 10);
 
         return {
           value: option,
-          rating: Math.pow(average(ratings), 2),
+          rating: Math.pow(average(ratings), 2).toFixed(1),
         };
       })
     );
