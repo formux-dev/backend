@@ -7,7 +7,7 @@ async function getForms(request, response) {
     response.send(
       forms.docs.map(doc => {
         return {
-          id: doc.id,
+          formId: doc.id,
           title: doc.data().meta.title,
         };
       })
