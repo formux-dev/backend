@@ -11,7 +11,6 @@ const getForm = require("./routes/getForm");
 const getFormResponses = require("./routes/getFormResponses");
 const getFormBiases = require("./routes/getFormBiases");
 const postForm = require("./routes/postForm");
-const tempRename = require("./routes/tempRename");
 
 const corsOptions = {
   origin: true,
@@ -27,7 +26,5 @@ app.get("/forms/:formId", getForm);
 app.get("/forms/:formId/responses", getFormResponses);
 app.get("/forms/:formId/biases", getFormBiases);
 app.post("/forms", postForm);
-
-app.get("/tempRename", tempRename);
 
 exports.api = functions.https.onRequest(app);
