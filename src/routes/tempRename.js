@@ -2,11 +2,11 @@ const { firestore } = require("../admin");
 
 async function tempRename(request, response) {
   try {
-    const docRef = await firestore.collection("forms").doc("M02EQbNoOWlczvLwJM84");
+    const docRef = firestore.collection("forms").doc("M02EQbNoOWlczvLwJM84");
 
-    const block = docRef.get().data().block;
+    const block = (await docRef.get()).data().block;
 
-    docRef.update({
+    await docRef.update({
       blocks: block,
     });
 
